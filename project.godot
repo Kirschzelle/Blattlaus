@@ -23,6 +23,10 @@ window/size/resizable=false
 window/size/borderless=true
 window/stretch/mode="viewport"
 
+[dotnet]
+
+project/assembly_name="Blattlaus"
+
 [input]
 
 ui_left={
@@ -68,6 +72,7 @@ pointing/emulate_mouse_from_touch=false
 [layer_names]
 
 2d_physics/layer_1="Player"
+2d_physics/layer_3="Enemy"
 
 [physics]
 

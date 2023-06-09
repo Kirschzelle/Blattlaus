@@ -43,18 +43,14 @@ func _process(delta):
 func create_attack_shape():
 	attackShape = Area2D.new()
 	add_child(attackShape)
-		
 	collisionShape = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 	shape.size = Vector2(15, 15)
 	collisionShape.shape = shape
-		
 	attackShape.add_child(collisionShape)
 	attackShape.position = velocity.normalized()
-		
 	attackShape.collision_layer = 0
 	attackShape.collision_mask = CollisionLayers.COLLISION_LAYER_ENEMY
-	
 	attackShape.monitorable = false
 	attackShape.monitoring = false
 
@@ -81,6 +77,8 @@ func calculate_movement(delta):
 		else:
 			calculate_input(delta)
 			listener_dash()
+	elif !knockedBack:
+		velocity *= 0.5
 	move_and_slide()
 	
 func calculate_input(delta):

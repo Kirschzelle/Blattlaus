@@ -20,6 +20,10 @@ func _init():
 	detectionRange = 100.0
 	
 func _process(_delta):
+	if jumping:
+		invincible = true
+	else:
+		invincible = false
 	if inRange:
 		$player_detected.visible = true
 	else:
@@ -53,7 +57,6 @@ func calculate_move(delta):
 		
 		if collision_body.get_collider_id() == player.get_instance_id():
 			if jumping == false:
-				attackCooldown = attackSpeed
 				pass
 				#TODO play special animation
 			player.init_newKnockBack((player.position - position), attack)

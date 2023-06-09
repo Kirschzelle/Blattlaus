@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const ENEMYKNOCKBACKTIMEREDUCTION = 5
+const ENEMYKNOCKBACKTIMEREDUCTION = 10
 
 #init in specific enemy script
 var attack
@@ -14,6 +14,7 @@ var knockBackPercentage = 0.0
 var knockBackIntensity = 1.0 #1.0 stands for 1 Second until you are able to completly move again.
 var knockBackVelocity = Vector2(0,0)
 var knockedBack = false
+var invincible = false
 
 #use in specific enemy script
 var inRange = false
@@ -46,7 +47,7 @@ func _physics_process(delta):
 	calculate_knockBack(delta)
 
 func init_newKnockBack(inputVector, intensity):
-	if inputVector != Vector2(0,0):
+	if inputVector != Vector2(0,0) && !invincible:
 		var tempVector = Vector2(0,0)
 		if knockBackPercentage * knockBackIntensity <= 1.0 * intensity:
 			knockedBack = true

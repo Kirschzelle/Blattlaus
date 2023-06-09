@@ -27,14 +27,15 @@ func _process(_delta):
 		attackCooldown = attackSpeed
 
 func _physics_process(delta):
+	super(delta)
 	calculate_jump(delta)
-	calculate_move(delta)	
+	calculate_move(delta)
 
 func calculate_jump(delta):
 	if inRange:
 		if attackCooldown > 0:
 			attackCooldown -= delta
-		else:
+		elif !knockedBack:
 			var direction = (player.position - position).normalized()
 			velocity = direction * jumpSpeed
 			jumping = true

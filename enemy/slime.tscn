@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://concqihe8u3ox"]
+[gd_scene load_steps=4 format=3 uid="uid://concqihe8u3ox"]
 
 [ext_resource type="Texture2D" uid="uid://cymjo0g3vrfeq" path="res://assets/kenney_1-bit-pack/Tilesheet/colored-transparent.png" id="1_pq3wk"]
 
@@ -6,17 +6,25 @@
 resource_name = "slime"
 script/source = "extends \"res://enemy/enemy.gd\"
 
-var attackCooldown
 var jumping = false
 var jumpSpeed = 200
-var jumpingTime = 0.5
+var jumpTime = 0.5
 
-func _ready():
+func _init():
+	super()
 	attack = 2
 	weight = 1
 	attackSpeed = 2.5
 	attackCooldown = attackSpeed
 	armor = false
+	detectionRange = 100.0
+	
+func _process(_delta):
+	if inRange:
+		$player_detected.visible = true
+	else:
+		$player_detected.visible = false
+		attackCooldown = attackSpeed
 
 func _physics_process(delta):
 	calculate_jump(delta)
@@ -31,12 +39,11 @@ func calculate_jump(delta):
 			velocity = direction * jumpSpeed
 			jumping = true
 			attackCooldown = attackSpeed
-			jumpingTime = 0.5
-			$player_detected.visible = false
+			jumpTime = 0.5
 
 func calculate_move(delta):
-	if jumpingTime > 0:
-		jumpingTime -= delta
+	if jumpTime > 0:
+		jumpTime -= delta
 	else:
 		velocity *= 0.8
 		
@@ -51,29 +58,12 @@ func calculate_move(delta):
 			player.init_newKnockBack((player.position - position), attack)
 			velocity = -(player.position - position).normalized() * jumpSpeed/6
 			jumping = false
-			if inRange:
-				$player_detected.visible = true
 	
 	if velocity.x < jumpSpeed/5 && velocity.x > -jumpSpeed/5 && velocity.y < jumpSpeed/5 && velocity.y > -jumpSpeed/5:
 		jumping = false
-		if inRange:
-			$player_detected.visible = true
 		
 	move_and_slide()
-
-func _on_area_2d_body_entered(body):
-	$player_detected.visible = true
-	inRange = true
-
-func _on_player_detection_body_exited(body):
-	$player_detected.visible = false
-	inRange = false
-	attackCooldown = attackSpeed
-	velocity = Vector2(0.0, 0.0)
 "
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_2u2wj"]
-radius = 80.0062
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4djdy"]
 size = Vector2(23, 23)
@@ -84,29 +74,20 @@ collision_mask = 5
 script = SubResource("GDScript_miroj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
 scale = Vector2(2.78125, 2.78125)
 texture = ExtResource("1_pq3wk")
 hframes = 49
 vframes = 22
 frame = 1056
 
-[node name="player_detection" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
-shape = SubResource("CircleShape2D_2u2wj")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_4djdy")
 
 [node name="player_detected" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-10, -20)
+position = Vector2(0, -20)
 texture = ExtResource("1_pq3wk")
 hframes = 49
 vframes = 22
 frame = 672
-
-[connection signal="body_entered" from="player_detection" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="player_detection" to="." method="_on_player_detection_body_exited"]

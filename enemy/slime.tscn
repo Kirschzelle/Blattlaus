@@ -7,9 +7,8 @@ resource_name = "slime"
 script/source = "extends \"res://enemy/enemy.gd\"
 
 var attackCooldown
-var player
 var jumping = false
-var jumpForce = 200
+var jumpSpeed = 200
 var jumpingTime = 0.5
 
 func _ready():
@@ -18,7 +17,6 @@ func _ready():
 	attackSpeed = 2.5
 	attackCooldown = attackSpeed
 	armor = false
-	player = get_node(\"../player\")
 
 func _physics_process(delta):
 	calculate_jump(delta)
@@ -30,7 +28,7 @@ func calculate_jump(delta):
 			attackCooldown -= delta
 		else:
 			var direction = (player.position - position).normalized()
-			velocity = direction * jumpForce
+			velocity = direction * jumpSpeed
 			jumping = true
 			attackCooldown = attackSpeed
 			jumpingTime = 0.5
@@ -51,12 +49,12 @@ func calculate_move(delta):
 				pass
 				#TODO play special animation
 			player.init_newKnockBack((player.position - position), attack)
-			velocity = -(player.position - position).normalized() * jumpForce/6
+			velocity = -(player.position - position).normalized() * jumpSpeed/6
 			jumping = false
 			if inRange:
 				$player_detected.visible = true
 	
-	if velocity.x < jumpForce/5 && velocity.x > -jumpForce/5 && velocity.y < jumpForce/5 && velocity.y > -jumpForce/5:
+	if velocity.x < jumpSpeed/5 && velocity.x > -jumpSpeed/5 && velocity.y < jumpSpeed/5 && velocity.y > -jumpSpeed/5:
 		jumping = false
 		if inRange:
 			$player_detected.visible = true

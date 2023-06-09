@@ -6,3 +6,5 @@ var attackSpeed
 var armor
 var armorAmount
 var inRange = false
+@onready
+var player = $/root/parent/player

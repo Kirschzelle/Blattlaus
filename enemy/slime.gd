@@ -54,8 +54,7 @@ func calculate_move(delta):
 				pass
 				#TODO play special animation
 			player.init_newKnockBack((player.position - position), attack)
-			#TODO change this to enemy knockback
-			velocity = -(player.position - position).normalized() * speed/6
+			init_newKnockBack(global_position - player.global_position, STANDARD_KNOCKBACK/weight)
 			jumping = false
 	
 	if velocity.x < speed/5 && velocity.x > -speed/5 && velocity.y < speed/5 && velocity.y > -speed/5:

@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cuxgj5yxectqh" path="res://player/player.tscn" id="1_wcrec"]
 [ext_resource type="Texture2D" uid="uid://dous11lsd0oy4" path="res://assets/kenney_1-bit-pack/Tilesheet/colored-transparent_packed.png" id="2_ob281"]
-[ext_resource type="PackedScene" uid="uid://concqihe8u3ox" path="res://enemy/slime.tscn" id="3_a2ulj"]
 [ext_resource type="PackedScene" uid="uid://pk3boqlmfrt8" path="res://enemy/eye.tscn" id="4_8b6yo"]
+[ext_resource type="PackedScene" uid="uid://bmlbmdm0llm01" path="res://enemy/heavy_fighter.tscn" id="5_s6vqs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g5dwi"]
 texture = ExtResource("2_ob281")
@@ -1104,8 +1104,8 @@ format = 2
 layer_0/name = "Floor"
 layer_0/tile_data = PackedInt32Array(262141, 524288, 5, -196613, 524288, 5, 65531, 524288, 5, -262139, 524288, 5, -393215, 524288, 5, 131074, 524288, 5, -262146, 524288, 5)
 
-[node name="slime" parent="." instance=ExtResource("3_a2ulj")]
-position = Vector2(144, -74)
-
 [node name="eye" parent="." instance=ExtResource("4_8b6yo")]
 position = Vector2(-152, -82)
+
+[node name="heavy_fighter" parent="." instance=ExtResource("5_s6vqs")]
+position = Vector2(1, 86)

@@ -4,7 +4,7 @@ const SPEED = 50
 const KNOCKBACKINTENSITYFACTOR = 1.0 #This sets the ratio at which knockbacks get longer per incresing intensity. Ex. 0.5 would be: if attack is twice as strong, your knockbacked with twice the speed, but only unable to move for 1.5 times the time.
 const DASHLENGTH = 0.15
 const DASHSPEEDFACTOR = 3
-const STANDARDATTACKDISTANCE = 10
+const STANDARDATTACKDISTANCE = 20
 
 var constSpeedMultiplier = 1.0
 var knockBackPercentage = 0.0
@@ -15,7 +15,7 @@ var dashTimer = 0
 var dashSpeedMultiplier = 1.0
 var dashLengthMultiplier = 1.0
 var dashing = false
-var attack = 10
+var attack = 1
 var attackSpeed = 1
 var attackCooldown = 0
 var attackLength = 0.5
@@ -50,7 +50,7 @@ func create_attack_shape():
 	attackShape.add_child(collisionShape)
 	attackShape.position = velocity.normalized()
 	attackShape.collision_layer = 0
-	attackShape.collision_mask = CollisionLayers.COLLISION_LAYER_ENEMY
+	attackShape.collision_mask = CollisionLayers.COLLISION_LAYER_ENEMY + CollisionLayers.COLLISION_LAYER_PROJECTILES
 	attackShape.monitorable = false
 	attackShape.monitoring = false
 

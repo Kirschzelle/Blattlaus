@@ -1,73 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://concqihe8u3ox"]
 
+[ext_resource type="Script" path="res://enemy/slime.gd" id="1_j3g4d"]
 [ext_resource type="Texture2D" uid="uid://cymjo0g3vrfeq" path="res://assets/kenney_1-bit-pack/Tilesheet/colored-transparent.png" id="1_pq3wk"]
-
-[sub_resource type="GDScript" id="GDScript_miroj"]
-resource_name = "slime"
-script/source = "extends \"res://enemy/enemy.gd\"
-
-var jumping = false
-var jumpSpeed = 200
-var jumpTime = 0.5
-
-func _init():
-	super()
-	attack = 2
-	weight = 1
-	attackSpeed = 2.5
-	attackCooldown = attackSpeed
-	armor = false
-	detectionRange = 100.0
-	
-func _process(_delta):
-	if jumping:
-		invincible = true
-	else:
-		invincible = false
-	if inRange:
-		$player_detected.visible = true
-	else:
-		$player_detected.visible = false
-		attackCooldown = attackSpeed
-
-func _physics_process(delta):
-	super(delta)
-	calculate_jump(delta)
-	calculate_move(delta)
-
-func calculate_jump(delta):
-	if inRange:
-		if attackCooldown > 0:
-			attackCooldown -= delta
-		elif !knockedBack:
-			var direction = (player.position - position).normalized()
-			velocity = direction * jumpSpeed
-			jumping = true
-			attackCooldown = attackSpeed
-			jumpTime = 0.5
-
-func calculate_move(delta):
-	if jumpTime > 0:
-		jumpTime -= delta
-	else:
-		velocity *= 0.8
-		
-	for x in get_slide_collision_count():
-		var collision_body = get_slide_collision(x)
-		
-		if collision_body.get_collider_id() == player.get_instance_id():
-			if jumping == false:
-				pass
-				#TODO play special animation
-			player.init_newKnockBack((player.position - position), attack)
-			velocity = -(player.position - position).normalized() * jumpSpeed/6
-			jumping = false
-	
-	if velocity.x < jumpSpeed/5 && velocity.x > -jumpSpeed/5 && velocity.y < jumpSpeed/5 && velocity.y > -jumpSpeed/5:
-		jumping = false
-		
-	move_and_slide()
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4djdy"]
 size = Vector2(23, 23)
@@ -75,7 +9,7 @@ size = Vector2(23, 23)
 [node name="slime" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 5
-script = SubResource("GDScript_miroj")
+script = ExtResource("1_j3g4d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)

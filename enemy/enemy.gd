@@ -1,15 +1,20 @@
 extends CharacterBody2D
 
 const ENEMYKNOCKBACKTIMEREDUCTION = 10
+const SPEED_REDUCTION_PRECENTAGE = 0.95
+const STANDARD_KNOCKBACK = 1
 
-#init in specific enemy script
+#init in specific enemy script (_init():) you have to call super() function!
+#Start of things to init
 var attack
 var weight
 var attackSpeed
-var attackCooldown
 var armor
 var detectionRange
+var speed
+#End of things to init
 
+var attackCooldown = 999
 var knockBackPercentage = 0.0
 var knockBackIntensity = 1.0 #1.0 stands for 1 Second until you are able to completly move again.
 var knockBackVelocity = Vector2(0,0)
@@ -32,6 +37,7 @@ func _ready():
 	detectionArea.body_entered.connect(_player_entered_detection_area,player.get_instance_id())
 	detectionArea.body_exited.connect(_player_exited_detection_area,player.get_instance_id())
 	player.init_new_enemy(self)
+	attackCooldown = attackSpeed
 
 func _init():
 	detectionArea = Area2D.new()
@@ -42,6 +48,9 @@ func _init():
 	detectionArea.collision_mask = CollisionLayers.COLLISION_LAYER_PLAYER
 	detectionArea.collision_layer =  0
 	detectionArea.add_child(collisionShape)
+
+func _process(_delta):
+	pass
 
 func _physics_process(delta):
 	calculate_knockBack(delta)

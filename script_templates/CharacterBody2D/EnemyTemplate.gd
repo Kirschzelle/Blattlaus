@@ -8,14 +8,28 @@ func _init():
 	weight =
 	attackSpeed =
 	detectionRange =
-	armor =
-	
+	speed =
+	armor = -1 #-1 stands for no armor
+
+func _ready():
+	super()
+
 func _process(delta):
-	pass
-	
+	super(delta)
+	hande_collision()
+
 func _physics_process(delta):
+	super(delta)
 	calculate_move(delta)
-	
+
+func hande_collision():
+	for x in get_slide_collision_count():
+		var collision_body = get_slide_collision(x)
+		if collision_body.get_collider_id() == player.get_instance_id():
+			#TODO Handle running into player
+			pass
+
 func calculate_move(delta):
-	#Your code here
+	#TODO handle movement
+	velocity *= SPEED_REDUCTION_PRECENTAGE
 	move_and_slide()

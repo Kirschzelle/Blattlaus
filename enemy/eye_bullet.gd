@@ -29,8 +29,8 @@ func hande_collision():
 		if collision_body.get_collider_id() == player.get_instance_id() && !pendingDelete:
 			player.init_newKnockBack(player.global_position - global_position, attack)
 			deleteNode()
-		elif collision_body.get_collider_id() == parent.get_instance_id() && !pendingDelete:
-			parent.init_newKnockBack(parent.global_position - global_position, attack)
+		elif !pendingDelete:
+			collision_body.get_collider().init_newKnockBack(collision_body.get_collider().global_position - global_position, attack)
 			deleteNode()
 	
 func _physics_process(delta):

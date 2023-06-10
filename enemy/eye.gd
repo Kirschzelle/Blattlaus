@@ -34,9 +34,9 @@ func _process(delta):
 func _physics_process(delta):
 	super(delta)
 	calculate_move(delta)
-	hande_collision()
+	handle_collision()
 
-func hande_collision():
+func handle_collision():
 	for x in get_slide_collision_count():
 		var collision_body = get_slide_collision(x)
 		if collision_body.get_collider_id() == player.get_instance_id():

@@ -17,13 +17,13 @@ func _ready():
 	
 func _process(delta):
 	super(delta)
-	hande_collision()
+	handle_collision()
 	if timeUntilScanningForEnemys > 0:
 		timeUntilScanningForEnemys -= delta
 		if timeUntilScanningForEnemys <= 0:
 			collision_mask = CollisionLayers.COLLISION_LAYER_PLAYER + CollisionLayers.COLLISION_LAYER_ENEMY
 
-func hande_collision():
+func handle_collision():
 	for x in get_slide_collision_count():
 		var collision_body = get_slide_collision(x)
 		if collision_body.get_collider_id() == player.get_instance_id() && !pendingDelete:

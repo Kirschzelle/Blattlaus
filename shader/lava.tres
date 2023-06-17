@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dw1v0igcj5uie"]
+
+[ext_resource type="Shader" path="res://shader/lava.gdshader" id="1_h4gn1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yk6lg"]
+noise_type = 3
+seed = 946067
+fractal_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b4mlk"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.868
+noise = SubResource("FastNoiseLite_yk6lg")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_h4gn1")
+shader_parameter/scroll = Vector2(0.05, 0.05)
+shader_parameter/scroll2 = Vector2(-0.005, 0.005)
+shader_parameter/scroll3 = Vector2(-0.002, -0.004)
+shader_parameter/scroll4 = Vector2(0.005, -0.003)
+shader_parameter/distortion_strength = 0.2
+shader_parameter/noise = SubResource("NoiseTexture2D_b4mlk")

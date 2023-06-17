@@ -77,7 +77,7 @@ func calculate_knockBack(delta):
 			knockedBack = false
 			
 func _player_entered_detection_area(_body):
-	inRange = true
+	inRange = true #TODO check if next line leads to memory leak (aka try to detach first)
 	detectionArea.body_entered.connect(_player_entered_detection_area,player.get_instance_id())
 	
 func _player_exited_detection_area(_body):

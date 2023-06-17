@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://btlusqltqe5iq"]
+[gd_scene load_steps=24 format=3 uid="uid://btlusqltqe5iq"]
 
 [ext_resource type="PackedScene" uid="uid://cuxgj5yxectqh" path="res://player/player.tscn" id="1_wcrec"]
 [ext_resource type="TileSet" uid="uid://cg2iufsbxlu11" path="res://tileset/arena.tres" id="2_jmoip"]
@@ -10,6 +10,7 @@
 [ext_resource type="Shader" path="res://shader/singelton_2.gdshader" id="9_bbyln"]
 [ext_resource type="Script" path="res://shader/lava_shader.gd" id="9_i6bjh"]
 [ext_resource type="PackedScene" uid="uid://concqihe8u3ox" path="res://enemy/slime.tscn" id="10_8t8ra"]
+[ext_resource type="PackedScene" uid="uid://pk3boqlmfrt8" path="res://enemy/eye.tscn" id="11_ijtpj"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jw6qu"]
 noise_type = 3
@@ -176,4 +177,8 @@ texture = ExtResource("4_h6mpr")
 
 [node name="slime" parent="." instance=ExtResource("10_8t8ra")]
 z_index = 50
-position = Vector2(-127, -95)
+position = Vector2(-158, -113)
+
+[node name="eye" parent="." instance=ExtResource("11_ijtpj")]
+z_index = 50
+position = Vector2(-111, 67)

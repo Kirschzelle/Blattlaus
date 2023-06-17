@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://concqihe8u3ox"]
 
 [ext_resource type="Script" path="res://enemy/slime.gd" id="1_j3g4d"]
-[ext_resource type="Texture2D" uid="uid://cymjo0g3vrfeq" path="res://assets/kenney_1-bit-pack/Tilesheet/colored-transparent.png" id="1_pq3wk"]
+[ext_resource type="Texture2D" uid="uid://cvq5sjn41146k" path="res://assets/enemy/enemy_slime.png" id="2_pekmp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4djdy"]
-size = Vector2(23, 23)
+size = Vector2(32, 19)
 
 [node name="slime" type="CharacterBody2D"]
 collision_layer = 4
@@ -13,19 +13,10 @@ script = ExtResource("1_j3g4d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
-scale = Vector2(2.78125, 2.78125)
-texture = ExtResource("1_pq3wk")
-hframes = 49
-vframes = 22
-frame = 1056
+texture = ExtResource("2_pekmp")
+hframes = 11
+vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_4djdy")
-
-[node name="player_detected" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -20)
-texture = ExtResource("1_pq3wk")
-hframes = 49
-vframes = 22
-frame = 672

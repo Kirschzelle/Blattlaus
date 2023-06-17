@@ -78,6 +78,8 @@ func calculate_knockBack(delta):
 			
 func _player_entered_detection_area(_body):
 	inRange = true
+	detectionArea.body_entered.connect(_player_entered_detection_area,player.get_instance_id())
 	
 func _player_exited_detection_area(_body):
 	inRange = false
+	detectionArea.body_exited.connect(_player_exited_detection_area,player.get_instance_id())

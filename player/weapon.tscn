@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbxjl0wl1jb1g"]
+
+[ext_resource type="Texture2D" uid="uid://bcoec5g3fh51y" path="res://assets/player/weapons.png" id="1_ywnoa"]
+
+[node name="weapon" type="Sprite2D"]
+position = Vector2(0, -3)
+texture = ExtResource("1_ywnoa")
+hframes = 2

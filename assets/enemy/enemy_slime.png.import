@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcoec5g3fh51y"
-path="res://.godot/imported/weapons.png-c54d46ec310fc8e86cd9322f3c84bc5c.ctex"
+uid="uid://cvq5sjn41146k"
+path="res://.godot/imported/enemy_slime.png-5f8d6174b78cddad7c924286dd6e3f97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/weapons.png"
-dest_files=["res://.godot/imported/weapons.png-c54d46ec310fc8e86cd9322f3c84bc5c.ctex"]
+source_file="res://assets/enemy/enemy_slime.png"
+dest_files=["res://.godot/imported/enemy_slime.png-5f8d6174b78cddad7c924286dd6e3f97.ctex"]
 
 [params]
 

@@ -1,0 +1,14 @@
+shader_type canvas_item;
+
+uniform sampler2D noise: repeat_enable;
+uniform vec2 scroll = vec2(0.5, 0.4);
+uniform vec2 scroll2 = vec2(-0.4, -0.5);
+uniform vec2 scroll3 = vec2(-0.4, 0.3);
+uniform vec2 scroll4 = vec2(0.2, -0.5);
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float distortion_strength = 0.2;
+
+void fragment() {
+	vec4 noise_col = texture(noise, UV + scroll * distortion_strength)*texture(noise, UV + scroll2 * distortion_strength)*texture(noise, UV + scroll3 * distortion_strength)*texture(noise, UV + scroll4 * distortion_strength);
+	COLOR = textureLod(screen_texture, SCREEN_UV - noise_col.rr * 0.1, 0);
+}

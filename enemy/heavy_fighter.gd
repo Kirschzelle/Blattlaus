@@ -2,6 +2,8 @@ extends "res://enemy/enemy.gd"
 
 const STANDARDATTACKDISTANCE = 20
 const ATTACK_IMPACT_TIME = 2
+const ANIMATION_IDLE_LOOP_TIME = 1.0
+const ANIMATION_WALKING_LOOP_TIME = 1.0
 
 var attackDirection
 var attackShape
@@ -11,13 +13,16 @@ var isAttacking = false
 var attackDone = false
 var attackLength = 0.75
 var attackImpact = 0
+var animationState = "idle"
+var animationTimer = 0.0
+var oldVelocity = Vector2(0,1)
 
 func _init():
 	super()
 	attack = 5
 	weight = 4
 	attackSpeed = 0.75
-	detectionRange = 70
+	detectionRange = 100
 	speed = 20
 	armor = -1 #-1 stands for no armor
 	create_attack_shape()
@@ -41,7 +46,6 @@ func _process(delta):
 		attackDone = false
 		attackShape.monitoring = false
 	if inRange:
-		$player_detected.visible = true
 		if attackImpact <= 0 && isAttacking:
 			if attackCooldown > 0:
 				attackCooldown -= delta
@@ -49,13 +53,13 @@ func _process(delta):
 				attackShape.monitoring = true
 				update_attack_shape()
 	else:
-		$player_detected.visible = false
 		attackCooldown = attackSpeed
 
 func _physics_process(delta):
 	super(delta)
 	handle_collision()
 	calculate_move(delta)
+	animate(delta)
 
 func create_attack_range():
 	attackRangeArea = Area2D.new()
@@ -91,23 +95,89 @@ func update_attack_shape():
 
 func _player_detected(_body):
 	player.init_newKnockBack(player.global_position - global_position, attack)
+	attackShape.body_entered.connect(_player_detected, player.get_instance_id())
 
 func _player_in_attack_range(_body):
 	inAttackRange = true
+	attackRangeArea.body_entered.connect(_player_in_attack_range, player.get_instance_id())
 
 func _player_not_in_attack_range(_body):
 	inAttackRange = false
+	attackRangeArea.body_exited.connect(_player_not_in_attack_range, player.get_instance_id())
 
 func handle_collision():
 	for x in get_slide_collision_count():
 		var collision_body = get_slide_collision(x)
 		if collision_body.get_collider_id() == player.get_instance_id():
 			player.init_newKnockBack(player.global_position - global_position, attack)
-			init_newKnockBack(global_position - player.global_position, STANDARD_KNOCKBACK/weight)
+			init_newKnockBack(-(player.global_position - global_position), STANDARD_KNOCKBACK/weight)
 
 func calculate_move(delta):
 	if inRange && !knockedBack && !isAttacking:
 		var moveDirection = (player.position - position).normalized()
 		velocity = moveDirection * speed
+		oldVelocity = velocity
+		animationState = "moving"
+	else:
+		animationState = "idle"
 	velocity *= SPEED_REDUCTION_PRECENTAGE
 	move_and_slide()
+
+func animate(delta):
+	if animationState == "idle":
+		if oldVelocity.angle() < PI/2 && oldVelocity.angle() > -PI/4:
+			if animationTimer <= 0:
+				animationTimer = ANIMATION_IDLE_LOOP_TIME
+			elif animationTimer <= ANIMATION_IDLE_LOOP_TIME/2:
+				$Sprite2D.frame = 10
+			else:
+				$Sprite2D.frame = 9
+		elif oldVelocity.angle() > -3*PI/4 && oldVelocity.angle() <= -PI/4:
+			if animationTimer <= 0:
+				animationTimer = ANIMATION_IDLE_LOOP_TIME
+			elif animationTimer <= ANIMATION_IDLE_LOOP_TIME/2:
+				$Sprite2D.frame = 8
+			else:
+				$Sprite2D.frame = 7
+		else:
+			if animationTimer <= 0:
+				animationTimer = ANIMATION_IDLE_LOOP_TIME
+			elif animationTimer <= ANIMATION_IDLE_LOOP_TIME/2:
+				$Sprite2D.frame = 1
+			else:
+				$Sprite2D.frame = 0
+	if animationState == "moving":
+		if oldVelocity.angle() < PI/2 && oldVelocity.angle() > -PI/4:
+			if animationTimer <= 0:
+				animationTimer = ANIMATION_WALKING_LOOP_TIME
+			elif animationTimer <= ANIMATION_WALKING_LOOP_TIME/4:
+				$Sprite2D.frame = 15
+			elif animationTimer <= ANIMATION_WALKING_LOOP_TIME/2:
+				$Sprite2D.frame = 14
+			elif animationTimer <= 3*ANIMATION_WALKING_LOOP_TIME/4:
+				$Sprite2D.frame = 13
+			else:
+				$Sprite2D.frame = 12
+		elif oldVelocity.angle() > -3*PI/4 && oldVelocity.angle() <= -PI/4:
+			if animationTimer <= 0:
+				animationTimer = ANIMATION_WALKING_LOOP_TIME
+			elif animationTimer <= ANIMATION_WALKING_LOOP_TIME/4:
+				$Sprite2D.frame = 21
+			elif animationTimer <= ANIMATION_WALKING_LOOP_TIME/2:
+				$Sprite2D.frame = 20
+			elif animationTimer <= 3*ANIMATION_WALKING_LOOP_TIME/4:
+				$Sprite2D.frame = 19
+			else:
+				$Sprite2D.frame = 18
+		else:
+			if animationTimer <= 0:
+				animationTimer = ANIMATION_WALKING_LOOP_TIME
+			elif animationTimer <= ANIMATION_WALKING_LOOP_TIME/4:
+				$Sprite2D.frame = 6
+			elif animationTimer <= ANIMATION_WALKING_LOOP_TIME/2:
+				$Sprite2D.frame = 5
+			elif animationTimer <= 3*ANIMATION_WALKING_LOOP_TIME/4:
+				$Sprite2D.frame = 4
+			else:
+				$Sprite2D.frame = 3
+	animationTimer -= delta

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuxgj5yxectqh"]
+[gd_scene load_steps=7 format=3 uid="uid://cuxgj5yxectqh"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_vt3x6"]
 [ext_resource type="Texture2D" uid="uid://b1cji0b2o81kg" path="res://assets/player/player_slave.png" id="2_r4avw"]
@@ -6,6 +6,14 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d07gl"]
 size = Vector2(10, 6)
+
+[sub_resource type="Gradient" id="Gradient_g47yp"]
+interpolation_mode = 2
+colors = PackedColorArray(0.873333, 0.702488, 0.380059, 1, 0.968905, 0.854382, 0.639335, 1)
+
+[sub_resource type="Gradient" id="Gradient_poaxe"]
+interpolation_mode = 2
+colors = PackedColorArray(0.465094, 4.45006e-07, 8.21476e-08, 1, 0.916535, 0.176266, 1.85608e-06, 1)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 10
@@ -33,3 +41,59 @@ frame = 10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_d07gl")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -3
+position = Vector2(2.08165e-12, 8)
+emitting = false
+amount = 6
+lifetime = 0.5
+explosiveness = 0.2
+randomness = 0.5
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(5, 1)
+direction = Vector2(2.08165e-12, -1)
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 3.0
+color_initial_ramp = SubResource("Gradient_g47yp")
+
+[node name="blood" type="CPUParticles2D" parent="."]
+z_index = 1
+emitting = false
+amount = 12
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(5, 5)
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 3.0
+color_initial_ramp = SubResource("Gradient_poaxe")
+
+[node name="blood2" type="CPUParticles2D" parent="."]
+z_index = 1
+emitting = false
+amount = 14
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(5, 5)
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 3.0
+color_initial_ramp = SubResource("Gradient_poaxe")

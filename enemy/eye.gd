@@ -21,6 +21,7 @@ func _init():
 	detectionRange = 100
 	armor = -1
 	speed = 30
+	type = "eye"
 	
 func _process(delta):
 	if inRange:

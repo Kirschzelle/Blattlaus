@@ -20,6 +20,7 @@ func _init():
 	armor = -1
 	speed = 200
 	detectionRange = 100.0
+	type = "slime"
 	
 func _process(delta):
 	super(delta)

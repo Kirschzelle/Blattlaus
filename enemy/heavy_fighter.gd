@@ -101,6 +101,7 @@ func update_attack_shape():
 func spawn_eye():
 	var eye = preload("res://enemy/eye.tscn").instantiate()
 	eye.global_position = Vector2(0,0)
+	eye.z_index = 50
 	add_sibling(eye)
 	spawnEye = false
 	queue_free()

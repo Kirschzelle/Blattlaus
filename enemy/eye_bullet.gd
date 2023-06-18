@@ -93,6 +93,7 @@ func gotHit():
 	$Sprite2D.visible = false
 	$mouth.visible = false
 	$CollisionShape2D.disabled = true
+	$LightOccluder2D.occluder_light_mask = 0
 	startDeathTimer = true
 
 func death_Timer(delta):

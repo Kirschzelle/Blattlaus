@@ -19,6 +19,7 @@ func _init():
 	attackSpeed = 1
 	detectionRange = 70
 	armor = -1
+	type = "eyeBullet"
 	
 func _ready():
 	super()

@@ -16,6 +16,7 @@ var attackImpact = 0
 var animationState = "idle"
 var animationTimer = 0.0
 var oldVelocity = Vector2(0,1)
+var particleStage = false
 
 func _init():
 	super()
@@ -181,3 +182,13 @@ func animate(delta):
 			else:
 				$Sprite2D.frame = 3
 	animationTimer -= delta
+
+func gotHit():
+	if particleStage:
+		if $blood2.emitting == false:
+			$blood.emitting = true
+			particleStage = false
+	else:
+		if $blood.emitting == false:
+			$blood2.emitting = true
+			particleStage = true

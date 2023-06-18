@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://concqihe8u3ox"]
+[gd_scene load_steps=5 format=3 uid="uid://concqihe8u3ox"]
 
 [ext_resource type="Script" path="res://enemy/slime.gd" id="1_j3g4d"]
 [ext_resource type="Texture2D" uid="uid://cvq5sjn41146k" path="res://assets/enemy/enemy_slime.png" id="2_pekmp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4djdy"]
 size = Vector2(32, 19)
+
+[sub_resource type="Gradient" id="Gradient_hla7v"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0.540439, 0.0183979, 1, 0.447224, 1, 0.469006, 1)
 
 [node name="slime" type="CharacterBody2D"]
 collision_layer = 4
@@ -20,3 +24,43 @@ vframes = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_4djdy")
+
+[node name="blood" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(2.08165e-12, 5)
+emitting = false
+amount = 14
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(15, 8)
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 5.0
+color_initial_ramp = SubResource("Gradient_hla7v")
+
+[node name="blood2" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(4.16329e-12, 10)
+emitting = false
+amount = 14
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(15, 8)
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 5.0
+color_initial_ramp = SubResource("Gradient_hla7v")

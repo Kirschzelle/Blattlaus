@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmlbmdm0llm01"]
+[gd_scene load_steps=5 format=3 uid="uid://bmlbmdm0llm01"]
 
 [ext_resource type="Script" path="res://enemy/heavy_fighter.gd" id="1_tdqyx"]
 [ext_resource type="Texture2D" uid="uid://dp37xpyfeetxp" path="res://assets/enemy/enemy_heavy_fighter.png" id="2_stvh6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8c2dk"]
 size = Vector2(19, 18)
+
+[sub_resource type="Gradient" id="Gradient_rc6mv"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.996689)
+colors = PackedColorArray(0.449155, 0.418734, 0.00642164, 1, 0.297163, 0.168474, 0.0395362, 1)
 
 [node name="heavy_fighter" type="CharacterBody2D"]
 collision_layer = 4
@@ -20,3 +25,43 @@ vframes = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 15)
 shape = SubResource("RectangleShape2D_8c2dk")
+
+[node name="blood" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(2.08165e-12, 5)
+emitting = false
+amount = 14
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(8, 15)
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 5.0
+color_initial_ramp = SubResource("Gradient_rc6mv")
+
+[node name="blood2" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(2.08165e-12, 5)
+emitting = false
+amount = 14
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(8, 15)
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 5.0
+color_initial_ramp = SubResource("Gradient_rc6mv")

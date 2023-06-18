@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8c7uj8c7rbk1"]
+[gd_scene load_steps=5 format=3 uid="uid://c8c7uj8c7rbk1"]
 
 [ext_resource type="Script" path="res://enemy/eye_bullet.gd" id="1_5io14"]
 [ext_resource type="Texture2D" uid="uid://cnuvkoyfnup6l" path="res://assets/enemy/enemy_eye_bullets.png" id="2_ft1be"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_47g80"]
 radius = 7.0
+
+[sub_resource type="Gradient" id="Gradient_pijjw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.996689)
+colors = PackedColorArray(0.402743, 0.00143085, 0.621935, 1, 0.526836, 0.0907186, 0.0851791, 1)
 
 [node name="eye_bullet" type="CharacterBody2D"]
 collision_layer = 8
@@ -26,3 +31,41 @@ texture = ExtResource("2_ft1be")
 hframes = 4
 vframes = 2
 frame = 4
+
+[node name="blood" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 1
+emission_sphere_radius = 7.0
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 3.0
+color_initial_ramp = SubResource("Gradient_pijjw")
+
+[node name="blood2" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+randomness = 0.75
+lifetime_randomness = 0.75
+emission_shape = 1
+emission_sphere_radius = 7.0
+direction = Vector2(2.08165e-12, -1)
+spread = 20.0
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+scale_amount_max = 3.0
+color_initial_ramp = SubResource("Gradient_pijjw")

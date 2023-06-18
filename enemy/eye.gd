@@ -11,6 +11,7 @@ var bullet = preload("res://enemy/eye_bullet.tscn")
 var animationState = "idle"
 var animationTimer = 0.0
 var phaseOutState = 0
+var particleStage = false
 
 func _init():
 	super()
@@ -107,3 +108,13 @@ func animate(delta):
 			animationTimer = ANIMATION_PHASE_OUT_TIME_PER_FRAME
 			phaseOutState -= 1
 	animationTimer -= delta
+
+func gotHit():
+	if particleStage:
+		if $blood2.emitting == false:
+			$blood.emitting = true
+			particleStage = false
+	else:
+		if $blood.emitting == false:
+			$blood2.emitting = true
+			particleStage = true

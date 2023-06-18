@@ -29,6 +29,8 @@ var animationState = "idle"
 var animationTimer = 0.0
 var animationOldAngle = Vector2(1,0)
 var dashcooldown = 0
+var particleStage = false
+var knockover = true
 
 func _init():
 	create_attack_shape()
@@ -108,6 +110,7 @@ func calculate_input(_delta):
 		animationState = "idle"
 	
 func init_newKnockBack(inputVector, intensity):
+	knockover = true
 	if inputVector != Vector2(0,0):
 		var tempVector = Vector2(0,0)
 		if knockBackPercentage * knockBackIntensity <= 1.0 * intensity:
@@ -118,6 +121,16 @@ func init_newKnockBack(inputVector, intensity):
 	
 func calculate_knockBack(delta):
 	if knockedBack:
+		if particleStage:
+			if $blood2.emitting == false && knockover:
+				$blood.emitting = true
+				particleStage = false
+				knockover = false
+		else:
+			if $blood.emitting == false && knockover:
+				$blood2.emitting = true
+				particleStage = true
+				knockover = false
 		if knockBackVelocity != Vector2(0,0):
 			velocity = velocity + knockBackVelocity
 			knockBackVelocity = Vector2(0,0)
@@ -125,7 +138,7 @@ func calculate_knockBack(delta):
 		if knockBackPercentage <= 0:
 			knockBackPercentage = 0
 			knockedBack = false
-			
+
 func listener_dash():
 	if Input.get_action_strength("ui_dash") > 0 && velocity != Vector2(0,0) && dashing == false && dashcooldown <= 0:
 		dashing = true
@@ -296,6 +309,13 @@ func animate(delta):
 	animationTimer -= delta
 	if velocity != Vector2(0,0):
 		animationOldAngle = velocity
+	particles()
+	
+func particles():
+	if animationState == "running" || animationState == "dashing" || animationState == "knockedBack":
+		$CPUParticles2D.emitting = true
+	else:
+		$CPUParticles2D.emitting = false
 
 func weapon_position_idle(inFront):
 	$weapon.position = Vector2(0,-3)

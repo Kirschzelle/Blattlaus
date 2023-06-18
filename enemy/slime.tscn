@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://concqihe8u3ox"]
+[gd_scene load_steps=6 format=3 uid="uid://concqihe8u3ox"]
 
 [ext_resource type="Script" path="res://enemy/slime.gd" id="1_j3g4d"]
 [ext_resource type="Texture2D" uid="uid://cvq5sjn41146k" path="res://assets/enemy/enemy_slime.png" id="2_pekmp"]
@@ -9,6 +9,9 @@ size = Vector2(32, 19)
 [sub_resource type="Gradient" id="Gradient_hla7v"]
 interpolation_mode = 2
 colors = PackedColorArray(0, 0.540439, 0.0183979, 1, 0.447224, 1, 0.469006, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_h4n8b"]
+polygon = PackedVector2Array(-12, 15, -16, 11, -16, 11, -16, 3, -10, -3, -5, -6, 7, -6, 12, -3, 16, 4, 16, 11, 16, 11, 13, 15)
 
 [node name="slime" type="CharacterBody2D"]
 collision_layer = 4
@@ -64,3 +67,6 @@ initial_velocity_min = 20.0
 initial_velocity_max = 30.0
 scale_amount_max = 5.0
 color_initial_ramp = SubResource("Gradient_hla7v")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_h4n8b")

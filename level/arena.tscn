@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://btlusqltqe5iq"]
+[gd_scene load_steps=27 format=3 uid="uid://btlusqltqe5iq"]
 
 [ext_resource type="PackedScene" uid="uid://cuxgj5yxectqh" path="res://player/player.tscn" id="1_wcrec"]
 [ext_resource type="TileSet" uid="uid://cg2iufsbxlu11" path="res://tileset/arena.tres" id="2_jmoip"]
@@ -11,7 +11,9 @@
 [ext_resource type="Script" path="res://shader/lava_shader.gd" id="9_i6bjh"]
 [ext_resource type="PackedScene" uid="uid://bmlbmdm0llm01" path="res://enemy/heavy_fighter.tscn" id="10_nfl8k"]
 [ext_resource type="PackedScene" uid="uid://concqihe8u3ox" path="res://enemy/slime.tscn" id="10_r4jyx"]
+[ext_resource type="Texture2D" uid="uid://soabkb5kugoo" path="res://assets/light.png" id="10_ukt42"]
 [ext_resource type="PackedScene" uid="uid://pk3boqlmfrt8" path="res://enemy/eye.tscn" id="11_gl5sj"]
+[ext_resource type="Script" path="res://level/pointilighty.gd" id="11_od6qv"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jw6qu"]
 noise_type = 3
@@ -176,12 +178,48 @@ position = Vector2(-14.5, -0.499985)
 scale = Vector2(10.1625, 8.3875)
 texture = ExtResource("4_h6mpr")
 
+[node name="light" type="Node2D" parent="."]
+
+[node name="PointLight2D26" type="PointLight2D" parent="light"]
+position = Vector2(193, -129)
+color = Color(1, 0.258824, 0, 1)
+shadow_enabled = true
+texture = ExtResource("10_ukt42")
+texture_scale = 2.0
+script = ExtResource("11_od6qv")
+
+[node name="PointLight2D59" type="PointLight2D" parent="light"]
+position = Vector2(-195, -129)
+color = Color(1, 0.258824, 0, 1)
+shadow_enabled = true
+texture = ExtResource("10_ukt42")
+texture_scale = 1.5
+script = ExtResource("11_od6qv")
+
+[node name="PointLight2D60" type="PointLight2D" parent="light"]
+position = Vector2(-198, 132)
+color = Color(1, 0.258824, 0, 1)
+shadow_enabled = true
+texture = ExtResource("10_ukt42")
+texture_scale = 1.5
+script = ExtResource("11_od6qv")
+
+[node name="PointLight2D61" type="PointLight2D" parent="light"]
+position = Vector2(195, 131)
+color = Color(1, 0.258824, 0, 1)
+shadow_enabled = true
+texture = ExtResource("10_ukt42")
+texture_scale = 1.5
+script = ExtResource("11_od6qv")
+
+[node name="eye" parent="." instance=ExtResource("11_gl5sj")]
+z_index = 50
+position = Vector2(160, 92)
+
+[node name="heavy_fighter" parent="." instance=ExtResource("10_nfl8k")]
+z_index = 50
+position = Vector2(142, -109)
+
 [node name="slime" parent="." instance=ExtResource("10_r4jyx")]
 z_index = 50
-position = Vector2(146, -100)
-
-[node name="heavy_fighter" parent="slime" instance=ExtResource("10_nfl8k")]
-position = Vector2(-294, -1)
-
-[node name="eye" parent="slime/heavy_fighter" instance=ExtResource("11_gl5sj")]
-position = Vector2(-31, 226)
+position = Vector2(-137, 81)

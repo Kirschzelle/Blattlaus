@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmlbmdm0llm01"]
+[gd_scene load_steps=6 format=3 uid="uid://bmlbmdm0llm01"]
 
 [ext_resource type="Script" path="res://enemy/heavy_fighter.gd" id="1_tdqyx"]
 [ext_resource type="Texture2D" uid="uid://dp37xpyfeetxp" path="res://assets/enemy/enemy_heavy_fighter.png" id="2_stvh6"]
@@ -10,6 +10,9 @@ size = Vector2(19, 18)
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.996689)
 colors = PackedColorArray(0.449155, 0.418734, 0.00642164, 1, 0.297163, 0.168474, 0.0395362, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_8vy3i"]
+polygon = PackedVector2Array(-7, 24, -9, -4, -6, -4, -9, -9, -13, -10, -16, -12, -16, -20, -11, -24, -4, -23, -3, -16, 3, -16, 4, -24, 12, -24, 16, -19, 15, -11, 9, -9, 9.14272, -4, 12, -4, 10, 24)
 
 [node name="heavy_fighter" type="CharacterBody2D"]
 collision_layer = 4
@@ -65,3 +68,6 @@ initial_velocity_min = 20.0
 initial_velocity_max = 30.0
 scale_amount_max = 5.0
 color_initial_ramp = SubResource("Gradient_rc6mv")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_8vy3i")

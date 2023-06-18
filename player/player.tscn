@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuxgj5yxectqh"]
+[gd_scene load_steps=8 format=3 uid="uid://cuxgj5yxectqh"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_vt3x6"]
 [ext_resource type="Texture2D" uid="uid://b1cji0b2o81kg" path="res://assets/player/player_slave.png" id="2_r4avw"]
@@ -14,6 +14,9 @@ colors = PackedColorArray(0.873333, 0.702488, 0.380059, 1, 0.968905, 0.854382, 0
 [sub_resource type="Gradient" id="Gradient_poaxe"]
 interpolation_mode = 2
 colors = PackedColorArray(0.465094, 4.45006e-07, 8.21476e-08, 1, 0.916535, 0.176266, 1.85608e-06, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xaf3w"]
+polygon = PackedVector2Array(-5, 8, -4, 8, -4, 7, -3, 7, -3, 6, -1, 6, -1, 7, 1, 7, 1, 6, 3, 6, 3, 8, 4, 8, 4, 7, 5, 7, 5, -5, 5, -6, 5, -7, 5, -8, 4, -8, -5, -8, -5, -7, -5, -7, -5, -6, -5, -5, -5, -3, -5, -2, -5, -1, -5, 0)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 10
@@ -97,3 +100,6 @@ initial_velocity_min = 20.0
 initial_velocity_max = 30.0
 scale_amount_max = 3.0
 color_initial_ramp = SubResource("Gradient_poaxe")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_xaf3w")

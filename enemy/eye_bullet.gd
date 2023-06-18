@@ -9,6 +9,9 @@ var pendingDelete = false
 var animationState = "idle"
 var animationTimer = 0.0
 var aggroStage = 0
+var particleStage = false
+var startDeathTimer = false
+var deathTimer = 0.75
 
 func _init():
 	super()
@@ -32,18 +35,18 @@ func _process(delta):
 func handle_collision():
 	for x in get_slide_collision_count():
 		var collision_body = get_slide_collision(x)
-		if collision_body.get_collider_id() == player.get_instance_id() && !pendingDelete:
+		if collision_body.get_collider_id() == player.get_instance_id() && !startDeathTimer:
 			player.init_newKnockBack(player.global_position - global_position, attack)
-			deleteNode()
-		elif !pendingDelete:
+			gotHit()
+		elif !startDeathTimer:
 			collision_body.get_collider().init_newKnockBack(collision_body.get_collider().global_position - global_position, attack)
-			deleteNode()
+			collision_body.get_collider().gotHit()
+			gotHit()
 	
 func _physics_process(delta):
 	super(delta)
-	if knockedBack:
-		deleteNode()
 	calculate_move(delta)
+	death_Timer(delta)
 	
 func calculate_move(delta):
 	if inRange:
@@ -73,4 +76,27 @@ func animate(delta):
 			$mouth.visible = false
 		else:
 			$mouth.visible = true
+	if startDeathTimer:
+		$mouth.visible = false
 	animationTimer -= delta
+	
+func gotHit():
+	if particleStage:
+		if $blood2.emitting == false:
+			$blood.emitting = true
+			particleStage = false
+	else:
+		if $blood.emitting == false:
+			$blood2.emitting = true
+			particleStage = true
+	$Sprite2D.visible = false
+	$mouth.visible = false
+	$CollisionShape2D.disabled = true
+	startDeathTimer = true
+
+func death_Timer(delta):
+	if startDeathTimer:
+		if deathTimer > 0:
+			deathTimer -= delta
+		else:
+			deleteNode()

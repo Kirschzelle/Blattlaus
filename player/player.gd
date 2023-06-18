@@ -83,6 +83,7 @@ func init_new_enemy(body):
 func _enemy_detected(body):
 	body.init_newKnockBack(body.global_position - global_position, attack)
 	attackShape.body_entered.connect(_enemy_detected, body.get_instance_id())
+	body.gotHit()
 	
 func _physics_process(delta):
 	calculate_movement(delta)

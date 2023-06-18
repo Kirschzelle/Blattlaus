@@ -10,6 +10,7 @@ var attackRest = 1
 var specialAnimationTime = 0
 const SPECIAL_ANIMATION_DURATION = 0.25
 var right = false
+var particleStage = false
 
 func _init():
 	super()
@@ -62,6 +63,14 @@ func calculate_move(delta):
 			player.init_newKnockBack((player.position - position), attack)
 			init_newKnockBack(global_position - player.global_position, STANDARD_KNOCKBACK/weight)
 			jumping = false
+			if particleStage:
+				if $blood2.emitting == false:
+					$blood.emitting = true
+					particleStage = false
+			else:
+				if $blood.emitting == false:
+					$blood2.emitting = true
+					particleStage = true
 	
 	if velocity.x < speed/5 && velocity.x > -speed/5 && velocity.y < speed/5 && velocity.y > -speed/5:
 		jumping = false
@@ -149,6 +158,14 @@ func animate(delta):
 			else: 
 				$Sprite2D.frame = 21
 		else:
+			if particleStage:
+				if $blood2.emitting == false:
+					$blood.emitting = true
+					particleStage = false
+			else:
+				if $blood.emitting == false:
+					$blood2.emitting = true
+					particleStage = true
 			if right:
 				$Sprite2D.frame = 9
 			else: 
@@ -178,3 +195,13 @@ func animate(delta):
 			else: 
 				$Sprite2D.frame = 26
 	animationTimer -= delta
+
+func gotHit():
+	if particleStage:
+		if $blood2.emitting == false:
+			$blood.emitting = true
+			particleStage = false
+	else:
+		if $blood.emitting == false:
+			$blood2.emitting = true
+			particleStage = true

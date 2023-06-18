@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://btlusqltqe5iq"]
+[gd_scene load_steps=24 format=3 uid="uid://btlusqltqe5iq"]
 
 [ext_resource type="PackedScene" uid="uid://cuxgj5yxectqh" path="res://player/player.tscn" id="1_wcrec"]
 [ext_resource type="TileSet" uid="uid://cg2iufsbxlu11" path="res://tileset/arena.tres" id="2_jmoip"]
@@ -9,9 +9,7 @@
 [ext_resource type="Shader" path="res://shader/lava.gdshader" id="8_yavvr"]
 [ext_resource type="Shader" path="res://shader/singelton_2.gdshader" id="9_bbyln"]
 [ext_resource type="Script" path="res://shader/lava_shader.gd" id="9_i6bjh"]
-[ext_resource type="PackedScene" uid="uid://bmlbmdm0llm01" path="res://enemy/heavy_fighter.tscn" id="10_nfl8k"]
 [ext_resource type="PackedScene" uid="uid://concqihe8u3ox" path="res://enemy/slime.tscn" id="10_r4jyx"]
-[ext_resource type="PackedScene" uid="uid://pk3boqlmfrt8" path="res://enemy/eye.tscn" id="11_gl5sj"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jw6qu"]
 noise_type = 3
@@ -92,6 +90,9 @@ shader_parameter/scroll4 = Vector2(0.2, -0.5)
 shader_parameter/distortion_strength = 0.2
 shader_parameter/noise = SubResource("NoiseTexture2D_vduy1")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mux54"]
+size = Vector2(378, 250)
+
 [node name="parent" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_wcrec")]
@@ -122,6 +123,7 @@ layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array()
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="map/sand"]
+visible = false
 position = Vector2(-11.5, 11)
 scale = Vector2(4.055, 3.15)
 rect = Rect2(-1000, -1000, 2000, 2000)
@@ -149,6 +151,7 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("7_a7ldb")
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="map/lava"]
+visible = false
 position = Vector2(-11.5, 11)
 scale = Vector2(4.055, 3.15)
 rect = Rect2(-1000, -1000, 2000, 2000)
@@ -162,6 +165,7 @@ texture = ExtResource("4_h6mpr")
 script = ExtResource("9_i6bjh")
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="map"]
+visible = false
 rect = Rect2(-1000, -1000, 2000, 2000)
 
 [node name="Sprite2D" type="Sprite2D" parent="map/BackBufferCopy"]
@@ -176,12 +180,18 @@ position = Vector2(-14.5, -0.499985)
 scale = Vector2(10.1625, 8.3875)
 texture = ExtResource("4_h6mpr")
 
+[node name="sandAreaEnemy" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sandAreaEnemy"]
+shape = SubResource("RectangleShape2D_mux54")
+
+[node name="sandAreaPlayer" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sandAreaPlayer"]
+shape = SubResource("RectangleShape2D_mux54")
+
 [node name="slime" parent="." instance=ExtResource("10_r4jyx")]
-z_index = 50
-position = Vector2(146, -100)
-
-[node name="heavy_fighter" parent="slime" instance=ExtResource("10_nfl8k")]
-position = Vector2(-294, -1)
-
-[node name="eye" parent="slime/heavy_fighter" instance=ExtResource("11_gl5sj")]
-position = Vector2(-31, 226)
+position = Vector2(120, -78)

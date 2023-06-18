@@ -26,6 +26,7 @@ func _init():
 	detectionRange = 100
 	speed = 20
 	armor = -1 #-1 stands for no armor
+	type = "heavyFighter"
 	create_attack_shape()
 	create_attack_range()
 
@@ -55,6 +56,9 @@ func _process(delta):
 				update_attack_shape()
 	else:
 		attackCooldown = attackSpeed
+		
+	if spawnEye:
+		spawn_eye()
 
 func _physics_process(delta):
 	super(delta)
@@ -93,7 +97,14 @@ func update_attack_shape():
 	attackCooldown = attackSpeed
 	attackImpact = ATTACK_IMPACT_TIME
 	attackDone = true
-
+	
+func spawn_eye():
+	var eye = preload("res://enemy/eye.tscn").instantiate()
+	eye.global_position = Vector2(0,0)
+	add_sibling(eye)
+	spawnEye = false
+	queue_free()
+	
 func _player_detected(_body):
 	player.init_newKnockBack(player.global_position - global_position, attack)
 	attackShape.body_entered.connect(_player_detected, player.get_instance_id())

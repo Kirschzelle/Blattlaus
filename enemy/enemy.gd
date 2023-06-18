@@ -12,7 +12,10 @@ var attackSpeed
 var armor
 var detectionRange
 var speed
+var type
 #End of things to init
+
+var spawnEye = false
 
 var attackCooldown = 999
 var knockBackPercentage = 0.0
@@ -36,6 +39,7 @@ func _ready():
 	detectionArea.monitorable = false
 	detectionArea.body_entered.connect(_player_entered_detection_area,player.get_instance_id())
 	detectionArea.body_exited.connect(_player_exited_detection_area,player.get_instance_id())
+	$/root/parent/sandAreaEnemy.body_exited.connect(_enemy_exited_sand_area, get_instance_id())
 	player.init_new_enemy(self)
 	attackCooldown = attackSpeed
 
@@ -83,3 +87,23 @@ func _player_entered_detection_area(_body):
 func _player_exited_detection_area(_body):
 	inRange = false
 	detectionArea.body_exited.connect(_player_exited_detection_area,player.get_instance_id())
+
+func _enemy_exited_sand_area(_body):
+	match type:
+		"slime":
+			spawn_heavy_fighter()
+		"heavyFighter":
+			spawnEye = true
+		"eye":
+			eye_defeated()
+	
+	if type != "heavyFighter":
+		queue_free()
+
+func spawn_heavy_fighter():
+	var heavyFighter = preload("res://enemy/heavy_fighter.tscn").instantiate()
+	heavyFighter.global_position = Vector2(0, 0)
+	add_sibling(heavyFighter)
+	
+func eye_defeated():
+	pass

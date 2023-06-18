@@ -19,7 +19,7 @@ var dashTimer = 0
 var dashSpeedMultiplier = 1.0
 var dashLengthMultiplier = 1.0
 var dashing = false
-var attack = 1
+var attack = 10
 var attackSpeed = 1
 var attackCooldown = 0
 var attackLength = 0.5
@@ -37,7 +37,7 @@ func _init():
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$/root/parent/sandAreaPlayer.body_exited.connect(_player_exited_sand_area, get_instance_id())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -154,6 +154,10 @@ func calculate_dash(delta):
 		velocity /= DASHSPEEDFACTOR * dashSpeedMultiplier
 		dashcooldown = DASH_COOLDOWN
 	animationState = "dashing"
+	
+func _player_exited_sand_area(body):
+	global_position = Vector2(global_position.normalized().x * 3 * 16, global_position.normalized().y * 6 * 16)
+	$/root/parent/sandAreaPlayer.body_exited.connect(_player_exited_sand_area, get_instance_id())
 
 func animate(delta):
 	if animationState == "idle":

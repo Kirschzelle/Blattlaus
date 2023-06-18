@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8c7uj8c7rbk1"]
+[gd_scene load_steps=6 format=3 uid="uid://c8c7uj8c7rbk1"]
 
 [ext_resource type="Script" path="res://enemy/eye_bullet.gd" id="1_5io14"]
 [ext_resource type="Texture2D" uid="uid://cnuvkoyfnup6l" path="res://assets/enemy/enemy_eye_bullets.png" id="2_ft1be"]
@@ -10,6 +10,9 @@ radius = 7.0
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.996689)
 colors = PackedColorArray(0.402743, 0.00143085, 0.621935, 1, 0.526836, 0.0907186, 0.0851791, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_w2dtq"]
+polygon = PackedVector2Array(-3, 5, -5, 4, -6, 2, -7, 0, -7, -2, -5, -6, -3, -7, 0, -8, 3, -7, 5, -6, 7, -2, 7, 0, 6, 2, 4, 5, 0, 6)
 
 [node name="eye_bullet" type="CharacterBody2D"]
 collision_layer = 8
@@ -69,3 +72,6 @@ initial_velocity_min = 20.0
 initial_velocity_max = 30.0
 scale_amount_max = 3.0
 color_initial_ramp = SubResource("Gradient_pijjw")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_w2dtq")

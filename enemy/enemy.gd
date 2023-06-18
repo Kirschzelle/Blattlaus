@@ -103,6 +103,7 @@ func _enemy_exited_sand_area(_body):
 func spawn_heavy_fighter():
 	var heavyFighter = preload("res://enemy/heavy_fighter.tscn").instantiate()
 	heavyFighter.global_position = Vector2(0, 0)
+	heavyFighter.z_index = 50
 	add_sibling(heavyFighter)
 	
 func eye_defeated():

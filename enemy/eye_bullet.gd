@@ -82,6 +82,7 @@ func animate(delta):
 	animationTimer -= delta
 	
 func gotHit():
+	sound.queueHit()
 	if particleStage:
 		if $blood2.emitting == false:
 			$blood.emitting = true
@@ -94,6 +95,7 @@ func gotHit():
 	$mouth.visible = false
 	$CollisionShape2D.disabled = true
 	$LightOccluder2D.occluder_light_mask = 0
+	playSound()
 	startDeathTimer = true
 
 func death_Timer(delta):
@@ -102,3 +104,6 @@ func death_Timer(delta):
 			deathTimer -= delta
 		else:
 			deleteNode()
+
+func playSound():
+	$spawn.play(0.13)

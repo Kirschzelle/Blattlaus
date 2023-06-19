@@ -4,7 +4,7 @@ const SPEED = 50
 const KNOCKBACKINTENSITYFACTOR = 1.0 #This sets the ratio at which knockbacks get longer per incresing intensity. Ex. 0.5 would be: if attack is twice as strong, your knockbacked with twice the speed, but only unable to move for 1.5 times the time.
 const DASHLENGTH = 0.25
 const DASHSPEEDFACTOR = 3.5
-const DASH_COOLDOWN = 4
+const DASH_COOLDOWN = 2
 const STANDARDATTACKDISTANCE = 8
 const ANIMATION_RUNNING_LOOP_TIME = 0.5
 const ANIMATION_IDLE_LOOP_TIME = 1.0
@@ -19,7 +19,7 @@ var dashTimer = 0
 var dashSpeedMultiplier = 1.0
 var dashLengthMultiplier = 1.0
 var dashing = false
-var attack = 10
+var attack = 4
 var attackSpeed = 1
 var attackCooldown = 0
 var attackLength = 0.5
@@ -31,6 +31,9 @@ var animationOldAngle = Vector2(1,0)
 var dashcooldown = 0
 var particleStage = false
 var knockover = true
+
+@onready
+var sound = $/root/parent/sound
 
 func _init():
 	create_attack_shape()
@@ -56,6 +59,7 @@ func _process(delta):
 	else:
 		animationState = "attacking"
 	animate(delta)
+	calculate_sound()
 		
 func create_attack_shape():
 	attackShape = Area2D.new()
@@ -76,6 +80,7 @@ func update_attack_shape():
 	attackShape.position = attackDirection * STANDARDATTACKDISTANCE + Vector2(0,2)
 	attackShape.rotation = attackDirection.angle()
 	attackCooldown = attackSpeed
+	playSound()
 	
 func init_new_enemy(body):
 	attackShape.body_entered.connect(_enemy_detected, body.get_instance_id())
@@ -109,6 +114,10 @@ func calculate_input(_delta):
 			animationState = "running"
 	else:
 		animationState = "idle"
+		
+func calculate_sound():
+	if global_position.x > 140 || global_position.x < -140 || global_position.y > 70 || global_position.y < -70:
+		sound.queueEdge()
 	
 func init_newKnockBack(inputVector, intensity):
 	knockover = true
@@ -119,6 +128,7 @@ func init_newKnockBack(inputVector, intensity):
 			knockBackIntensity = intensity * KNOCKBACKINTENSITYFACTOR
 			knockBackPercentage = 1.0
 		knockBackVelocity = knockBackVelocity + tempVector.direction_to(inputVector) * SPEED * intensity
+	sound.queueTank()
 	
 func calculate_knockBack(delta):
 	if knockedBack:
@@ -315,6 +325,7 @@ func animate(delta):
 	if velocity != Vector2(0,0):
 		animationOldAngle = velocity
 	particles()
+	playSoundRunning()
 	
 func particles():
 	if animationState == "running" || animationState == "dashing" || animationState == "knockedBack":
@@ -329,3 +340,15 @@ func weapon_position_idle(inFront):
 		$weapon.z_index = 0
 	else:
 		$weapon.z_index = -2
+
+func playSoundRunning():
+	if animationState == "running":
+		if !$running.playing:
+			$running.play()
+	else:
+		if $running.playing:
+			$running.stop()
+			
+func playSound():
+	if !$hit.playing:
+		$hit.play()

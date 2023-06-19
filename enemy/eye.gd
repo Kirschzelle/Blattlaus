@@ -5,7 +5,7 @@ const ANIMATION_IDLE_LOOP_TIME = 1.0
 const ANIMATION_PHASE_OUT_TIME_PER_FRAME = 0.25
 const OUTSIDE_RANGE_FACTOR = 1.5
 
-var maxBullets = 10
+var maxBullets = 15
 var bulletAmount = 0
 var bullet = preload("res://enemy/eye_bullet.tscn")
 var animationState = "idle"
@@ -15,12 +15,12 @@ var particleStage = false
 
 func _init():
 	super()
-	attack = 1.5
+	attack = 4
 	weight = 3
 	attackSpeed = 0.25
 	detectionRange = 100
 	armor = -1
-	speed = 30
+	speed = 40
 	type = "eye"
 	
 func _process(delta):
@@ -72,6 +72,7 @@ func spawn_bullet():
 	newBullet.position = position + Vector2(0,10)
 	bulletAmount += 1
 	add_sibling(newBullet)
+	playSound()
 
 func animate(delta):
 	if animationState == "idle":
@@ -119,3 +120,6 @@ func gotHit():
 		if $blood.emitting == false:
 			$blood2.emitting = true
 			particleStage = true
+
+func playSound():
+	$spawn.play(0.13)

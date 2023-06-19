@@ -64,6 +64,7 @@ func calculate_move(delta):
 			player.init_newKnockBack((player.position - position), attack)
 			init_newKnockBack(global_position - player.global_position, STANDARD_KNOCKBACK/weight)
 			jumping = false
+			playSound()
 			if particleStage:
 				if $blood2.emitting == false:
 					$blood.emitting = true
@@ -163,10 +164,12 @@ func animate(delta):
 				if $blood2.emitting == false:
 					$blood.emitting = true
 					particleStage = false
+					playSound()
 			else:
 				if $blood.emitting == false:
 					$blood2.emitting = true
 					particleStage = true
+					playSound()
 			if right:
 				$Sprite2D.frame = 9
 			else: 
@@ -198,6 +201,7 @@ func animate(delta):
 	animationTimer -= delta
 
 func gotHit():
+	playSound()
 	if particleStage:
 		if $blood2.emitting == false:
 			$blood.emitting = true
@@ -206,3 +210,7 @@ func gotHit():
 		if $blood.emitting == false:
 			$blood2.emitting = true
 			particleStage = true
+
+func playSound():
+	if !$sound.playing:
+		$sound.play()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://concqihe8u3ox"]
+[gd_scene load_steps=7 format=3 uid="uid://concqihe8u3ox"]
 
 [ext_resource type="Script" path="res://enemy/slime.gd" id="1_j3g4d"]
 [ext_resource type="Texture2D" uid="uid://cvq5sjn41146k" path="res://assets/enemy/enemy_slime.png" id="2_pekmp"]
+[ext_resource type="AudioStream" uid="uid://l26m1sl3ulrv" path="res://sound/slime.wav" id="3_exh51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4djdy"]
 size = Vector2(32, 19)
@@ -70,3 +71,7 @@ color_initial_ramp = SubResource("Gradient_hla7v")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_h4n8b")
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_exh51")
+pitch_scale = 1.2

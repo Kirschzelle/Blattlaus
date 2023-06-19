@@ -28,6 +28,8 @@ var invincible = false
 var inRange = false
 @onready
 var player = $/root/parent/player
+@onready
+var sound = $/root/parent/sound
 
 #internal vars
 var collisionShape
@@ -60,6 +62,7 @@ func _physics_process(delta):
 	calculate_knockBack(delta)
 
 func init_newKnockBack(inputVector, intensity):
+	sound.queueHit()
 	if inputVector != Vector2(0,0) && !invincible:
 		var tempVector = Vector2(0,0)
 		if knockBackPercentage * knockBackIntensity <= 1.0 * intensity:
@@ -91,17 +94,20 @@ func _player_exited_detection_area(_body):
 func _enemy_exited_sand_area(_body):
 	match type:
 		"slime":
+			sound.stage = 2
 			spawn_heavy_fighter()
 		"heavyFighter":
 			spawnEye = true
+			sound.stage = 3
 		"eye":
 			eye_defeated()
+			sound.stage = 4
 	
 	if type != "heavyFighter":
 		queue_free()
 
 func spawn_heavy_fighter():
-	var heavyFighter = preload("res://enemy/heavy_fighter.tscn").instantiate()
+	var heavyFighter = load("res://enemy/heavy_fighter.tscn").instantiate()
 	heavyFighter.global_position = Vector2(0, 0)
 	heavyFighter.z_index = 50
 	add_sibling(heavyFighter)

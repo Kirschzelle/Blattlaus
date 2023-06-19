@@ -20,7 +20,7 @@ var particleStage = false
 
 func _init():
 	super()
-	attack = 5
+	attack = 4
 	weight = 4
 	attackSpeed = 0.75
 	detectionRange = 100
@@ -99,7 +99,7 @@ func update_attack_shape():
 	attackDone = true
 	
 func spawn_eye():
-	var eye = preload("res://enemy/eye.tscn").instantiate()
+	var eye = load("res://enemy/eye.tscn").instantiate()
 	eye.global_position = Vector2(0,0)
 	eye.z_index = 50
 	add_sibling(eye)

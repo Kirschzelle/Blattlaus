@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://btlusqltqe5iq"]
+[gd_scene load_steps=27 format=3 uid="uid://btlusqltqe5iq"]
 
 [ext_resource type="PackedScene" uid="uid://cuxgj5yxectqh" path="res://player/player.tscn" id="1_wcrec"]
 [ext_resource type="TileSet" uid="uid://cg2iufsbxlu11" path="res://tileset/arena.tres" id="2_jmoip"]
@@ -9,9 +9,10 @@
 [ext_resource type="Shader" path="res://shader/lava.gdshader" id="8_yavvr"]
 [ext_resource type="Shader" path="res://shader/singelton_2.gdshader" id="9_bbyln"]
 [ext_resource type="Script" path="res://shader/lava_shader.gd" id="9_i6bjh"]
-[ext_resource type="PackedScene" uid="uid://concqihe8u3ox" path="res://enemy/slime.tscn" id="10_r4jyx"]
 [ext_resource type="Texture2D" uid="uid://soabkb5kugoo" path="res://assets/light.png" id="10_ukt42"]
 [ext_resource type="Script" path="res://level/pointilighty.gd" id="11_od6qv"]
+[ext_resource type="Script" path="res://sound/sound.gd" id="13_bgdlg"]
+[ext_resource type="AudioStream" uid="uid://ckp2uxt1ro1nx" path="res://sound/S1_base.wav" id="14_p8id1"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jw6qu"]
 noise_type = 3
@@ -213,10 +214,6 @@ texture = ExtResource("10_ukt42")
 texture_scale = 1.5
 script = ExtResource("11_od6qv")
 
-[node name="slime" parent="." instance=ExtResource("10_r4jyx")]
-z_index = 50
-position = Vector2(-137, 81)
-
 [node name="sandAreaEnemy" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
@@ -229,3 +226,15 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sandAreaPlayer"]
 shape = SubResource("RectangleShape2D_mux54")
+
+[node name="sound" type="Node2D" parent="."]
+script = ExtResource("13_bgdlg")
+
+[node name="base" type="AudioStreamPlayer" parent="sound"]
+stream = ExtResource("14_p8id1")
+
+[node name="tank" type="AudioStreamPlayer" parent="sound"]
+
+[node name="hit" type="AudioStreamPlayer" parent="sound"]
+
+[node name="edge" type="AudioStreamPlayer" parent="sound"]

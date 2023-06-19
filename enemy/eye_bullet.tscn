@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8c7uj8c7rbk1"]
+[gd_scene load_steps=7 format=3 uid="uid://c8c7uj8c7rbk1"]
 
 [ext_resource type="Script" path="res://enemy/eye_bullet.gd" id="1_5io14"]
 [ext_resource type="Texture2D" uid="uid://cnuvkoyfnup6l" path="res://assets/enemy/enemy_eye_bullets.png" id="2_ft1be"]
+[ext_resource type="AudioStream" uid="uid://clifhak12rukl" path="res://sound/spawn.wav" id="3_dhgfq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_47g80"]
 radius = 7.0
@@ -75,3 +76,7 @@ color_initial_ramp = SubResource("Gradient_pijjw")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_w2dtq")
+
+[node name="spawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dhgfq")
+pitch_scale = 2.0

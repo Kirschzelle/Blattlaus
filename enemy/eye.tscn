@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://pk3boqlmfrt8"]
+[gd_scene load_steps=7 format=3 uid="uid://pk3boqlmfrt8"]
 
 [ext_resource type="Script" path="res://enemy/eye.gd" id="1_065tj"]
 [ext_resource type="Texture2D" uid="uid://d23h8xwitq172" path="res://assets/enemy/enemy_eye.png" id="2_rro24"]
+[ext_resource type="AudioStream" uid="uid://clifhak12rukl" path="res://sound/spawn.wav" id="3_24afa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7p74a"]
 radius = 24.0
@@ -71,3 +72,6 @@ color_initial_ramp = SubResource("Gradient_2igse")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_gvmnv")
+
+[node name="spawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_24afa")
